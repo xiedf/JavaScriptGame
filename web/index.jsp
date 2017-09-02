@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>打砖块</title>
   </head>
   <body>
-  $END$
+          运行成功
   </body>
 </html>
