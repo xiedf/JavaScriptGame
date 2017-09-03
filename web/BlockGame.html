@@ -36,14 +36,68 @@ var Paddle = function () {
     }
     return o
 }
+var Ball = function () {
+    var image = imageFromPath('ball.png')
+    var o = {
+        image: image,
+        x: 140,
+        y: 200,
+        speedX: 10,
+        speedY: 10,
+        fired: false,
+    }
+    o.move = function () {
+        if(o.fired){
+            if(o.x < 0 || o.x > 350){
+                o.speedX *= -1
+            }
+            if(o.y < 0 || o.y > 250){
+                o.speedY *= -1
+            }
+            //move
+            o.x += o.speedX
+            o.y += o.speedY
+        }
+    }
+    o.fire = function () {
+        o.fired = true
+    }
+    return o
+}
 var Game = function () {
-    var g = {}
+    var g = {
+        actions: {},
+        keydowns: {},
+    }
     var canvas = document.querySelector('#id-canvas');
     var context = canvas.getContext('2d');
     g.canvas = canvas
     g.context = context
-
+    //draw
+    g.drawImage = function (gameImage) {
+        g.context.drawImage(gameImage.image, gameImage.x, gameImage.y)
+    }
+    //events
+    window.addEventListener('keydown', function (event) {
+        g.keydowns[event.key] = true
+    })
+    window.addEventListener('keyup', function (event) {
+        g.keydowns[event.key] = false
+    })
+    //
+    g.registerAction = function (key, callback) {
+        g.actions[key] = callback
+    }
+    //timer
     setInterval(function () {
+        //events
+        var actions = Object.keys(g.actions)
+        for (var i = 0; i < actions.length; i++){
+            var key = actions[i]
+            if (g.keydowns[key]){
+                g.actions[key]()
+            }
+        }
         //update
         g.update()
         //clear
@@ -54,45 +108,29 @@ var Game = function () {
 
     return g
 }
+
 var main = function () {
-
     var game = Game()
-
     var paddle = Paddle()
+    var ball = Ball()
 
-    var leftDown = false;
-    var rightDown = false;
-
-    window.addEventListener('keydown', function (event) {
-        var k = event.key;
-//    log(event)
-        if (k == 'a') {
-            leftDown = true;
-        } else if (k == 'd') {
-            rightDown = true;
-        }
+    game.registerAction('a', function () {
+        paddle.moveLeft()
     })
-
-    window.addEventListener('keyup', function (event) {
-        var k = event.key;
-        if (k == 'a') {
-            leftDown = false;
-        } else if (k == 'd') {
-            rightDown = false;
-        }
+    game.registerAction('d', function () {
+        paddle.moveRight()
     })
-
+    game.registerAction('f', function () {
+        ball.fire()
+    })
     game.update = function () {
-        //更新横坐标
-        if (leftDown) {
-            paddle.moveLeft()
-        } else if (rightDown) {
-            paddle.moveRight()
-        }
+        ball.move()
+        //判断相撞
     }
     game.draw = function () {
         //draw
-        game.context.drawImage(paddle.image, paddle.x, paddle.y)
+        game.drawImage(paddle)
+        game.drawImage(ball)
     }
 }
 
