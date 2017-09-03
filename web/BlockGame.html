@@ -8,27 +8,11 @@
                 border : 1px black solid;
             }
         </style>
+        <script src="utils.js"></script>
     </head>
     <body>
         <canvas id="id-canvas" width="400" height="300"></canvas>
 <script>
-
-
-var imageFromPath = function (path) {
-    var img = new Image()
-    img.src = path
-    return img
-}
-
-var rectIntersects = function (a, b) {
-    if (b.y > a.y && b.y < a.y + a.image.height){
-        if (b.x > a.x && b.x < a.x + a.image.width){
-            return true
-        }
-    }
-    return false
-}
-
 var Paddle = function () {
     var image = imageFromPath('picture/rectangle.png')
     var o = {
@@ -39,10 +23,14 @@ var Paddle = function () {
     }
     var paddle = o
     o.moveLeft = function () {
-        paddle.x -= paddle.speed
+        if(paddle.x > 0){
+            paddle.x -= paddle.speed
+        }
     }
     o.moveRight = function () {
-        paddle.x += paddle.speed
+        if(paddle.x + o.image.width < 400){
+            paddle.x += paddle.speed
+        }
     }
     o.collide = function (object) {
         if (object.y + object.image.height > o.y){
@@ -124,6 +112,7 @@ var Succeed = function () {
     }
     return o
 }
+
 var Game = function () {
     var g = {
         actions: {},
@@ -233,8 +222,6 @@ var main = function () {
 }
 
 main()
-
-
 </script>
     </body>
 </html>
