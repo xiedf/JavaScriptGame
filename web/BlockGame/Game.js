@@ -44,7 +44,7 @@ var Game = function () {
         g.draw()
         setTimeout(function () {
             runloop()
-        })
+        }, 1000/window.fps)
     }
     setTimeout(function () {
         runloop()
