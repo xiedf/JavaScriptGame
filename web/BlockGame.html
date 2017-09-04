@@ -8,13 +8,13 @@
                 border : 1px black solid;
             }
         </style>
-        <script src="utils.js"></script>
+        <script src="BlockGame/utils.js"></script>
     </head>
     <body>
         <canvas id="id-canvas" width="400" height="300"></canvas>
 <script>
 var Paddle = function () {
-    var image = imageFromPath('img/rectangle.png')
+    var image = imageFromPath('BlockGame/img/rectangle.png')
     var o = {
         image: image,
         x: 40,
@@ -44,7 +44,7 @@ var Paddle = function () {
 }
 
 var Ball = function () {
-    var image = imageFromPath('img/ball.png')
+    var image = imageFromPath('BlockGame/img/ball.png')
     var o = {
         image: image,
         x: 140,
@@ -83,7 +83,7 @@ var Ball = function () {
 }
 
 var Brick = function () {
-    var image = imageFromPath('img/brick.png')
+    var image = imageFromPath('BlockGame/img/brick.png')
     var o = {
         image: image,
         x: 0,
@@ -104,7 +104,7 @@ var Brick = function () {
 }
 
 var Succeed = function () {
-    var image = imageFromPath('img/succeed.png')
+    var image = imageFromPath('BlockGame/img/succeed.png')
     var o = {
         image: image,
         x: 0,
