@@ -14,31 +14,57 @@
         <script src="BlockGame/Game.js"></script>
         <script src="BlockGame/Paddle.js"></script>
         <script src="BlockGame/Succeed.js"></script>
+        <script src="BlockGame/level.js"></script>
         <script src="BlockGame/utils.js"></script>
 
     </head>
     <body>
         <canvas id="id-canvas" width="400" height="300"></canvas>
+        <hr>
+        <input id=id-input-speed type="range" value="1">
 <script>
+    var loadLevel = function (n) {
+        n -= 1
+        var level = levels[n]
+        var bricks = []
+        for (var i = 0; i < level.length; i++){
+            var p = level[i]
+            for (var j = 0; j < 3; j++) {
+                var b = Brick(p, j)
+                bricks.push(b)
+            }
+        }
+        return bricks
+    }
+
     var main = function () {
-        var game = Game(150)
+        var game = Game()
 
         var paddle = Paddle()
         var ball = Ball()
 
         var succeed = Succeed()
 
-        var bricks = []
-        for (var i = 0; i < 5; i++){
-            for (var j = 0; j < 3; j++) {
-                var b = Brick()
-                b.x = i * 73
-                b.y = j * 27
-                bricks.push(b)
-            }
-        }
-
+        var bricks = loadLevel(1)
         var paused = false
+        var enableDebugMode = function (enable) {
+            if(!enable){
+                return
+            }
+            window.addEventListener('keydown', function (event) {
+                var k = event.key
+                if(k == 'p'){
+                    paused = !paused
+                } else if ('12345'.includes(k)){
+                    bricks = loadLevel(Number(k))
+                }
+            })
+            document.querySelector('#id-input-speed').addEventListener('input', function (event) {
+                var input = event.target
+                log(event, input.value)
+                window.fps = Number(input.value)
+            })
+        }
         game.registerAction('a', function () {
             paddle.moveLeft()
         })
@@ -48,11 +74,9 @@
         game.registerAction('f', function () {
             ball.fire()
         })
-        window.addEventListener('keydown', function (event) {
-            if(event.key == 'p'){
-                paused = !paused
-            }
-        })
+
+
+        enableDebugMode(true)
         game.update = function () {
             if (paused) {
                 return
@@ -93,6 +117,7 @@
                 }
             }
         }
+
     }
 main()
 

@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/9/4 0004.
  */
-var Game = function (fps) {
+var Game = function () {
     var g = {
         actions: {},
         keydowns: {},
@@ -26,7 +26,8 @@ var Game = function (fps) {
         g.actions[key] = callback
     }
     //timer
-    setInterval(function () {
+    var runloop = function () {
+        log(window.fps)
         //events
         var actions = Object.keys(g.actions)
         for (var i = 0; i < actions.length; i++){
@@ -41,7 +42,13 @@ var Game = function (fps) {
         context.clearRect(0, 0, canvas.width, canvas.height)
         //draw
         g.draw()
-    }, 1000/fps)
+        setTimeout(function () {
+            runloop()
+        })
+    }
+    setTimeout(function () {
+        runloop()
+    }, 1000/window.fps)
 
     return g
 }
