@@ -1,12 +1,9 @@
 /**
  * Created by Administrator on 2017/9/4 0004.
  */
-var Succeed = function () {
-    var image = imageFromPath('BlockGame/img/succeed.png')
-    var o = {
-        image: image,
-        x: 0,
-        y: 0,
-    }
+var Succeed = function (game) {
+    var o = game.imageByName('succeed')
+    o.x = 0
+    o.y = 0
     return o
 }

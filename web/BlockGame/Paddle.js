@@ -1,14 +1,11 @@
 /**
  * Created by Administrator on 2017/9/4 0004.
  */
-var Paddle = function () {
-    var image = imageFromPath('BlockGame/img/rectangle.png')
-    var o = {
-        image: image,
-        x: 40,
-        y: 240,
-        speed: 1,
-    }
+var Paddle = function (game) {
+    var o = game.imageByName('rectangle')
+    o.x = 40
+    o.y = 240
+    o.speed = 1
     var paddle = o
     o.moveLeft = function () {
         if(paddle.x > 0){

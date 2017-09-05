@@ -1,10 +1,13 @@
 /**
  * Created by Administrator on 2017/9/4 0004.
  */
-var Game = function () {
+var Game = function (images, runCallback) {
+    //images是一个对象，里面是所有图片的名字和路径
+    //程序会在所有图片载入之后运行
     var g = {
         actions: {},
         keydowns: {},
+        images: {},
     }
     var canvas = document.querySelector('#id-canvas');
     var context = canvas.getContext('2d');
@@ -44,11 +47,45 @@ var Game = function () {
         g.draw()
         setTimeout(function () {
             runloop()
-        })
+        }, 1000/window.fps)
     }
-    setTimeout(function () {
-        runloop()
-    }, 1000/window.fps)
+
+    var loads = []
+    //load all image
+    var names = Object.keys(images)
+    for(var i = 0; i < names.length; i++){
+        let name = names[i]
+        var path = images[name]
+        let img = new Image()
+        img.src = path
+        img.onload = function () {
+            //存入g.images中
+            g.images[name] = img
+            //所有图片都载入成功之后,调用run
+            loads.push(1)
+            log('load images')
+            if (loads.length == names.length){
+                g.run()
+            }
+        }
+    }
+    g.imageByName = function (name) {
+        var img = g.images[name]
+        var image = {
+            w: img.width,
+            h: img.height,
+            image: img,
+        }
+        return image
+    }
+    g.run = function () {
+        runCallback(g)
+        //开始运行
+        setTimeout(function () {
+            runloop()
+        }, 1000/window.fps)
+    }
+
 
     return g
 }

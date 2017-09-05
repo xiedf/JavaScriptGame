@@ -22,104 +22,13 @@
         <canvas id="id-canvas" width="400" height="300"></canvas>
         <hr>
         <input id=id-input-speed type="range" value="1">
-<script>
-    var loadLevel = function (n) {
-        n -= 1
-        var level = levels[n]
-        var bricks = []
-        for (var i = 0; i < level.length; i++){
-            var p = level[i]
-            for (var j = 0; j < 3; j++) {
-                var b = Brick(p, j)
-                bricks.push(b)
-            }
-        }
-        return bricks
-    }
+        <div class="">
+            <textarea id="id-text-log" rows="20" cols="50">
 
-    var main = function () {
-        var game = Game()
+            </textarea>
+        </div>
+<script src="BlockGame/main.js">
 
-        var paddle = Paddle()
-        var ball = Ball()
-
-        var succeed = Succeed()
-
-        var bricks = loadLevel(1)
-        var paused = false
-        var enableDebugMode = function (enable) {
-            if(!enable){
-                return
-            }
-            window.addEventListener('keydown', function (event) {
-                var k = event.key
-                if(k == 'p'){
-                    paused = !paused
-                } else if ('12345'.includes(k)){
-                    bricks = loadLevel(Number(k))
-                }
-            })
-            document.querySelector('#id-input-speed').addEventListener('input', function (event) {
-                var input = event.target
-                log(event, input.value)
-                window.fps = Number(input.value)
-            })
-        }
-        game.registerAction('a', function () {
-            paddle.moveLeft()
-        })
-        game.registerAction('d', function () {
-            paddle.moveRight()
-        })
-        game.registerAction('f', function () {
-            ball.fire()
-        })
-
-
-        enableDebugMode(true)
-        game.update = function () {
-            if (paused) {
-                return
-            }
-            ball.move()
-            //判断ball和rectangle相撞
-            if (paddle.collide(ball)) {
-                ball.rebound()
-            }
-            //判断ball和brick相撞
-            for (var i = 0; i < bricks.length; i++){
-                var brick = bricks[i]
-                if (brick.collide(ball)){
-                    ball.rebound()
-                    brick.break()
-                }
-            }
-
-        }
-        game.draw = function () {
-            //draw
-            for (var i = 0; i < bricks.length; i++){
-                if (bricks[i].alive){
-                    break;
-                }
-                if(i == bricks.length - 1){
-                    game.drawImage(succeed)
-                }
-            }
-
-            game.drawImage(paddle)
-            game.drawImage(ball)
-
-            for (var i = 0; i < bricks.length; i++){
-                var brick = bricks[i]
-                if(brick.alive){
-                    game.drawImage(brick)
-                }
-            }
-        }
-
-    }
-main()
 
 </script>
     </body>

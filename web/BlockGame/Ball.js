@@ -1,17 +1,14 @@
 /**
  * Created by Administrator on 2017/9/4 0004.
  */
-var Ball = function () {
-    var image = imageFromPath('BlockGame/img/ball.png')
-    var o = {
-        image: image,
-        x: 140,
-        y: 200,
-        speedX: 2,
-        speedY: 2,
-        fired: false,
-        crashed: false,
-    }
+var Ball = function (game) {
+    var o = game.imageByName('ball')
+    o.x = 140
+    o.y = 200
+    o.speedX = 2
+    o.speedY = 2
+    o.fired = false
+    o.crashed = false
     o.move = function () {
         if(o.fired){
             if(o.x < 0 || o.x > 400 - o.image.width){
