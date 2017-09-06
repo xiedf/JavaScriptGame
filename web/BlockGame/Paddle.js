@@ -17,9 +17,14 @@ var Paddle = function (game) {
             paddle.x += paddle.speed
         }
     }
+    var aInb = function (x, x1, x2) {
+        return x >= x1 && x <= x2
+    }
     o.collide = function (object) {
-        if (object.y + object.image.height > o.y){
-            if (object.x > o.x && object.x < o.image.width + o.x){
+        var a = o
+        var b = object
+        if (aInb(a.x, b.x, b.x + b.w) || aInb(b.x, a.x, a.x + a.w)) {
+            if (aInb(a.y, b.y, b.y + b.h) || aInb(b.y, a.y, a.y + a.h)) {
                 return true
             }
         }

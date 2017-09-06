@@ -82,9 +82,35 @@ var main = function () {
                     score += 100
                 }
             }
+            //mouse event
+            var enableDrag = false
+            game.canvas.addEventListener('mousedown', function (event) {
+                var x = event.offsetX
+                var y = event.offsetY
+                //检查鼠标是否点中ball
+                if (ball.hasPoint(x, y)) {
+                    //设置拖拽状态
+                    enableDrag = true
+                }
+            })
+            game.canvas.addEventListener('mousemove', function (event) {
+                var x = event.offsetX
+                var y = event.offsetY
+                if (enableDrag) {
+                    log(x, y, 'drag')
+                    ball.x = x
+                    ball.y = y
+                }
+            })
+            game.canvas.addEventListener('mouseup', function (event) {
+                enableDrag = false
+            })
 
         }
         game.draw = function () {
+            //draw 背景
+            game.context.fillStyle = "white"
+            game.context.fillRect(0, 0, 400, 300)
             //draw
             for (var i = 0; i < bricks.length; i++){
                 if (bricks[i].alive){
@@ -108,6 +134,8 @@ var main = function () {
             game.context.fillText('score:' + score, 10, 270)
         }
     })
+
+
 
 }
 
