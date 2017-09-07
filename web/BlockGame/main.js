@@ -42,7 +42,7 @@ var main = function () {
         rectangle: 'BlockGame/img/rectangle.png',
         succeed: 'BlockGame/img/succeed.png',
     }
-    var game = Game(images, function (g) {
+    var game = Game.instance(150, images, function (g) {
         var s = SceneTitle.new(g)
         g.runWithScene(s)
     })
