@@ -36,33 +36,18 @@ var enableDebugMode = function (game, enable) {
 }
 
 var main = function () {
+
     var images = {
         ball: 'BlockGame/img/ball.png',
         brick: 'BlockGame/img/brick.png',
         rectangle: 'BlockGame/img/rectangle.png',
         succeed: 'BlockGame/img/succeed.png',
     }
-
-    var game = Game(images, function (inputGame) {
-        var scene = Scene(game)
-        enableDebugMode(game, true)
-
-        game.update = function () {
-            // if (paused) {
-            //     return
-            // }
-            //s.update
-            scene.update()
-        }
-
-        game.draw = function () {
-            //s.draw
-            scene.draw()
-        }
+    var game = Game(images, function (g) {
+        var s = Scene(g)
+        g.runWithScene(s)
     })
-
-
-
+    enableDebugMode(game, true)
 }
 
 main()

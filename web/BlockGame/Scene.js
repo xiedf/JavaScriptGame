@@ -5,7 +5,6 @@ var Scene = function (game) {
     //init
     var paddle = Paddle(game)
     var ball = Ball(game)
-    var succeed = Succeed(game)
     var score = 0
     var bricks = loadLevel(game, 1)
 
@@ -48,7 +47,16 @@ var Scene = function (game) {
         game.context.fillText('score:' + score, 10, 270)
     }
     s.update = function () {
+        if (window.paused) {
+            return
+        }
         ball.move()
+        //判断游戏失败
+        // if (ball.y > paddle.y) {
+        //     var end = SceneEnd(game)
+        //     game.replaceScene(end)
+        //     return
+        // }
         //判断ball和rectangle相撞
         if (paddle.collide(ball)) {
             ball.rebound()
@@ -87,7 +95,6 @@ var Scene = function (game) {
     game.canvas.addEventListener('mouseup', function (event) {
         enableDrag = false
     })
-
 
     return s
 }

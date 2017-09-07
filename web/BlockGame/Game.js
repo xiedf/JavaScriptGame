@@ -4,11 +4,14 @@
 var Game = function (images, runCallback) {
     //images是一个对象，里面是所有图片的名字和路径
     //程序会在所有图片载入之后运行
+
     var g = {
+        scene: null,
         actions: {},
         keydowns: {},
         images: {},
     }
+
     var canvas = document.querySelector('#id-canvas');
     var context = canvas.getContext('2d');
     g.canvas = canvas
@@ -24,7 +27,14 @@ var Game = function (images, runCallback) {
     window.addEventListener('keyup', function (event) {
         g.keydowns[event.key] = false
     })
-    //
+    //update
+    g.update = function () {
+        g.scene.update()
+    }
+    //draw
+    g.draw = function () {
+        g.scene.draw()
+    }
     g.registerAction = function (key, callback) {
         g.actions[key] = callback
     }
@@ -65,7 +75,7 @@ var Game = function (images, runCallback) {
             loads.push(1)
             log('load images')
             if (loads.length == names.length){
-                g.run()
+                g.__start()
             }
         }
     }
@@ -78,14 +88,19 @@ var Game = function (images, runCallback) {
         }
         return image
     }
-    g.run = function () {
-        runCallback(g)
+    g.runWithScene = function (scene) {
+        g.scene = scene
         //开始运行
         setTimeout(function () {
             runloop()
         }, 1000/window.fps)
     }
-
+    g.replaceScene = function (scene) {
+        g.scene = scene
+    }
+    g.__start = function (scene) {
+        runCallback(g)
+    }
 
     return g
 }
