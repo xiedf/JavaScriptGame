@@ -23,7 +23,7 @@ var enableDebugMode = function (game, enable) {
     window.addEventListener('keydown', function (event) {
         var k = event.key
         if(k == 'p'){
-            paused = !paused
+            window.paused = !window.paused
         } else if ('12345'.includes(k)){
             bricks = loadLevel(Number(k))
         }
@@ -36,7 +36,6 @@ var enableDebugMode = function (game, enable) {
 }
 
 var main = function () {
-
     var images = {
         ball: 'BlockGame/img/ball.png',
         brick: 'BlockGame/img/brick.png',
@@ -44,7 +43,7 @@ var main = function () {
         succeed: 'BlockGame/img/succeed.png',
     }
     var game = Game(images, function (g) {
-        var s = Scene(g)
+        var s = SceneTitle.new(g)
         g.runWithScene(s)
     })
     enableDebugMode(game, true)

@@ -29,9 +29,6 @@ var Scene = function (game) {
             if (bricks[i].alive){
                 break;
             }
-            if(i == bricks.length - 1){
-                game.drawImage(succeed)
-            }
         }
 
         game.drawImage(paddle)
@@ -51,12 +48,12 @@ var Scene = function (game) {
             return
         }
         ball.move()
-        //判断游戏失败
-        // if (ball.y > paddle.y) {
-        //     var end = SceneEnd(game)
-        //     game.replaceScene(end)
-        //     return
-        // }
+        // 判断游戏失败
+        if (ball.y > paddle.y) {
+            var end = SceneEnd.new(game)
+            game.replaceScene(end)
+            return
+        }
         //判断ball和rectangle相撞
         if (paddle.collide(ball)) {
             ball.rebound()
