@@ -20,15 +20,15 @@ var enableDebugMode = function (game, enable) {
 
 var main = function () {
     var images = {
-        bullet: 'ShootingGame/img/bullet1.png',
+        bullet: 'ShootingGame/img/bullet2.png',
         cloud: 'ShootingGame/img/cloud1.png',
         player: 'ShootingGame/img/player.png',
-        // sky: 'ShootingGame/img/sky.jpg',
+        sky: 'ShootingGame/img/sky.jpg',
     }
     var game = Game.instance(150, images, function (g) {
         var s = Scene.new(g)
         g.runWithScene(s)
-        log('main')
+        // log('main')
     })
     enableDebugMode(game, true)
 }

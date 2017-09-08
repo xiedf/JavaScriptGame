@@ -27,6 +27,7 @@ class Game{
         return this.i
     }
     drawImage(gameImage){
+        log(gameImage)
         this.context.drawImage(gameImage.texture, gameImage.x, gameImage.y)
     }
     update(){
@@ -41,7 +42,7 @@ class Game{
         this.actions[key] = callback
     }
     runloop(){
-        log(window.fps)
+        // log(window.fps)
         //events
         var g = this
         var actions = Object.keys(g.actions)
@@ -55,7 +56,7 @@ class Game{
         g.update()
         //clear
         g.context.clearRect(0, 0, g.canvas.width, g.canvas.height)
-
+        log(this.scene)
         //draw
         g.draw()
         setTimeout(function () {
