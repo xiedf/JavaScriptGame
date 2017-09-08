@@ -27,13 +27,14 @@ class Game{
         return this.i
     }
     drawImage(gameImage){
-        this.context.drawImage(gameImage.image, gameImage.x, gameImage.y)
+        this.context.drawImage(gameImage.texture, gameImage.x, gameImage.y)
     }
     update(){
         this.scene.update()
     }
     //draw
     draw(){
+        // log(this.scene)
         this.scene.draw()
     }
     registerAction(key, callback){
@@ -54,21 +55,18 @@ class Game{
         g.update()
         //clear
         g.context.clearRect(0, 0, g.canvas.width, g.canvas.height)
+
         //draw
         g.draw()
         setTimeout(function () {
             g.runloop()
         }, 1000/window.fps)
     }
-    imageByName(name){
+    textureByName(name){
     var g = this
     var img = g.images[name]
-    var image = {
-        w: img.width,
-        h: img.height,
-        image: img,
-    }
-    return image
+
+    return img
 }
     init(){
         var loads = []

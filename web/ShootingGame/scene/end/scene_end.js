@@ -8,9 +8,9 @@ class SceneEnd extends GameScene{
             var s = SceneTitle.new(game)
             game.replaceScene(s)
         })
-    }
-    draw(){
-        this.game.context.fillText('over，按r重玩', 100, 190)
-    }
+}
+draw(){
+    this.game.context.fillText('over，按r重玩', 100, 190)
+}
 
 }

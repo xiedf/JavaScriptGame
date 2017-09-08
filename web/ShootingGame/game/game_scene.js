@@ -4,6 +4,7 @@
 class GameScene {
     constructor(game){
         this.game = game
+        this.elements = []
     }
     draw(){
 
@@ -11,6 +12,9 @@ class GameScene {
     static new(game){
         var instnace = new this(game)
         return instnace
+    }
+    addElement(gameImage){
+        this.elements.push(gameImage)
     }
     update(){
 
