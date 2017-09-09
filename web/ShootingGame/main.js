@@ -23,9 +23,15 @@ var main = function () {
         bullet: 'ShootingGame/img/bullet2.png',
         cloud: 'ShootingGame/img/cloud1.png',
         player: 'ShootingGame/img/player.png',
+        enemy0: 'ShootingGame/img/npc0.png',
+        enemy1: 'ShootingGame/img/npc1.png',
+        enemy2: 'ShootingGame/img/npc2.png',
+        enemy3: 'ShootingGame/img/npc3.png',
+        enemy4: 'ShootingGame/img/npc4.png',
+
         sky: 'ShootingGame/img/sky.jpg',
     }
-    var game = Game.instance(150, images, function (g) {
+    var game = Game.instance(30, images, function (g) {
         var s = Scene.new(g)
         g.runWithScene(s)
         // log('main')

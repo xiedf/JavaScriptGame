@@ -1,27 +1,196 @@
+class Bullet extends GameImage {
+    constructor(game) {
+        super(game, 'bullet')
+        this.setup()
+    }
+    setup() {
+        this.speed = 2
+    }
+    update() {
+        this.y -= this.speed
+    }
+}
+class Player extends GameImage {
+    constructor(game) {
+        super(game, 'player')
+        this.setup()
+    }
+    setup() {
+        this.speed = 5
+    }
+    update() {
+
+    }
+    moveLeft() {
+        if(this.x >= 0) {
+            this.x -= this.speed
+        }
+    }
+    moveRight() {
+        if(this.x <= 400 - this.w) {
+            this.x += this.speed
+        }
+    }
+    moveUp() {
+        if(this.y >= 0) {
+            this.y -= this.speed
+        }
+
+    }
+    moveDown() {
+        if(this.y <= 600 - this.h) {
+            this.y += this.speed
+        }
+    }
+    fire() {
+        var x = this.x + this.w / 2
+        var y = this.y
+        var b = Bullet.new(this.game)
+        b.x = x
+        b.y = y
+        this.scene.addElement(b)
+    }
+}
+
+const randomBetween = function (start, end) {
+    var n = Math.random() * (end - start + 1)
+    return Math.floor(n + start)
+}
+class Enemy extends GameImage {
+    constructor(game) {
+        var type = randomBetween(0, 4)
+        var name = 'enemy' + type
+        super(game, name)
+        this.setup()
+    }
+    setup() {
+        this.speed = randomBetween(2, 5)
+        this.x = randomBetween(0, 350)
+        this.y = -randomBetween(0, 200)
+    }
+    update() {
+        this.y += this.speed
+        if (this.y >= 600) {
+            this.setup()
+        }
+    }
+    moveLeft() {
+        if(this.x >= 0) {
+            this.x -= this.speed
+        }
+    }
+    moveRight() {
+        if(this.x <= 400 - this.w) {
+            this.x += this.speed
+        }
+    }
+    moveUp() {
+        if(this.y >= 0) {
+            this.y -= this.speed
+        }
+
+    }
+
+}
+
+class Cloud extends GameImage {
+    constructor(game) {
+        super(game, 'cloud')
+        this.setup()
+    }
+    setup() {
+        this.speed = 1
+        // this.x = randomBetween(0, 350)
+        // this.y = -randomBetween(0, 200)
+    }
+    update() {
+        this.y += this.speed
+        if (this.y >= 600) {
+            this.setup()
+        }
+    }
+    moveLeft() {
+        if(this.x >= 0) {
+            this.x -= this.speed
+        }
+    }
+    moveRight() {
+        if(this.x <= 400 - this.w) {
+            this.x += this.speed
+        }
+    }
+    moveUp() {
+        if(this.y >= 0) {
+            this.y -= this.speed
+        }
+
+    }
+
+}
+
 class Scene extends GameScene{
     constructor(game){
         super(game)
         this.setup()
+        this.setupInputs()
     }
     setup(){
         var game = this.game
+        this.numberOfEnemies = 10
         this.bg = GameImage.new(game, 'sky')
-        this.cloud = GameImage.new(game, 'cloud')
-        this.player = GameImage.new(game, 'player')
-        this.player.x = 100
-        this.player.y = 150
+        this.cloud = Cloud.new(game, 'cloud')
+        this.cloud.w = 400
+        this.cloud.h = 600
+        this.player = Player.new(game)
+        this.player.x = 150
+        this.player.y = 450
         this.addElement(this.bg)
-        this.addElement(this.player)
         this.addElement(this.cloud)
+        this.addElement(this.player)
+        //
+        this.addEnemies()
         // log(this.elements)
     }
-    draw(){
+    addEnemies() {
+        var es = []
+        for (var i = 0; i < this.numberOfEnemies; i++) {
+            var e = Enemy.new(this.game)
+            es.push(e)
+            this.addElement(e)
+        }
+        this.enemies = es
+
+    }
+    setupInputs() {
+        var s = this
+        var g = s.game
+        g.registerAction('a', function () {
+            s.player.moveLeft()
+        })
+        g.registerAction('d', function () {
+            s.player.moveRight()
+        })
+        g.registerAction('w', function () {
+            s.player.moveUp()
+        })
+        g.registerAction('s', function () {
+            s.player.moveDown()
+        })
+        g.registerAction('j', function () {
+            s.player.fire()
+        })
+        // g.registerAction('f', function () {
+        //     s.player.fire()
+        // })
+    }
+    draw() {
         for (var i = 0; i < this.elements.length; i++){
             var e = this.elements[i]
             this.game.drawImage(e)
         }
     }
-    update(){
+    update() {
+        super.update()
         this.cloud.y += 1
     }
 }
