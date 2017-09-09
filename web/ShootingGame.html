@@ -22,15 +22,69 @@
 
 </head>
 <body>
-<canvas id="id-canvas" width="400" height="600"></canvas>
-<hr>
-<input id=id-input-speed type="range" value="1">
-<div class="">
-            <textarea id="id-text-log" rows="20" cols="50">
+    <canvas id="id-canvas" width="400" height="600"></canvas>
+    <hr>
+    <input id=id-input-speed type="range" value="1">
+    <div class="">
+                <!--<textarea id="id-text-log" rows="20" cols="50">-->
 
-            </textarea>
-</div>
-<script src="ShootingGame/main.js">
-</script>
+                <!--</textarea>-->
+    </div>
+    <div class="">
+        <label>
+            <input class="game-auto-slider" type="range"
+                   value=""
+                   data-value="config.player_speed" >
+            玩家速度：<span class="game-label"></span>
+        </label>
+    </div>
+    <div class="">
+        <label>
+            <input class="game-auto-slider" type="range"
+                   value=""
+                   data-value="config.bullet_speed" >
+            子弹速度：<span class="game-label"></span>
+        </label>
+    </div>
+    <div class="">
+        <label>
+            <input class="game-auto-slider" type="range"
+                   value=""
+                   data-value="config.cloud_speed" >
+            云的速度：<span class="game-label"></span>
+        </label>
+    </div>
+    <div class="">
+        <label>
+            <input class="game-auto-slider" type="range"
+                   value=""
+                   data-value="config.enemy_speed" >
+            敌人速度：<span class="game-label"></span>
+        </label>
+    </div>
+    <script src="ShootingGame/main.js"></script>
+    <script>
+        var es = sel => document.querySelectorAll(sel)
+
+        var bindAll = function (sel, eventName, callback) {
+            var l = es(sel)
+            for (var i = 0; i < l.length; i++) {
+                var input = l[i]
+                input.addEventListener(eventName, function (event) {
+                    callback(event)
+                })
+            }
+        }
+
+        bindAll('.game-auto-slider', 'input', function (event) {
+            var target = event.target
+            var bindVar = target.dataset.value
+            var v = target.value
+            eval(bindVar + '=' + v)
+            //
+            var label = target.closest('label').querySelector('game-label')
+            label.innerText = v
+        })
+    </script>
 </body>
 </html>
