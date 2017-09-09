@@ -3,6 +3,7 @@ const config = {
     cloud_speed: 1,
     enemy_speed: 5,
     bullet_speed: 5,
+    fire_cooldown: 5,
 }
 class Bullet extends GameImage {
     constructor(game) {
@@ -55,7 +56,7 @@ class Player extends GameImage {
     }
     fire() {
         if (this.cooldown == 0) {
-            this.cooldown = 12
+            this.cooldown = config.fire_cooldown
             var x = this.x + this.w / 2
             var y = this.y
             var b = Bullet.new(this.game)
@@ -114,7 +115,7 @@ class Cloud extends GameImage {
         this.setup()
     }
     setup() {
-        this.speed = 1
+        this.speed = config.cloud_speed
         // this.x = randomBetween(0, 350)
         // this.y = -randomBetween(0, 200)
     }

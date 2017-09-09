@@ -50,6 +50,8 @@
         <label>
             <input class="game-auto-slider" type="range"
                    value=""
+                   min="-10"
+                   max="10"
                    data-value="config.cloud_speed" >
             云的速度：<span class="game-label"></span>
         </label>
@@ -60,6 +62,15 @@
                    value=""
                    data-value="config.enemy_speed" >
             敌人速度：<span class="game-label"></span>
+        </label>
+    </div>
+    <div class="">
+        <label>
+            <input class="game-auto-slider" type="range"
+                   value=""
+                   max="15"
+                   data-value="config.fire_cooldown" >
+            子弹cd：<span class="game-label"></span>
         </label>
     </div>
     <script src="ShootingGame/main.js"></script>

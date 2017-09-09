@@ -5,6 +5,7 @@ class GameScene {
     constructor(game){
         this.game = game
         this.elements = []
+        this.debugModeEnabled = true
     }
     draw(){
     }
@@ -17,10 +18,13 @@ class GameScene {
         this.elements.push(gameImage)
     }
     update(){
-        for (var i = 0; i < this.elements.length; i++){
-            var e = this.elements[i]
-            e.update()
+        if (this.debugModeEnabled) {
+            for (var i = 0; i < this.elements.length; i++){
+                var e = this.elements[i]
+                e.update()
+            }
         }
+
     }
 }
 
