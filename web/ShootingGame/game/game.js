@@ -27,7 +27,6 @@ class Game{
         return this.i
     }
     drawImage(gameImage){
-        log(gameImage)
         this.context.drawImage(gameImage.texture, gameImage.x, gameImage.y)
     }
     update(){
@@ -56,7 +55,6 @@ class Game{
         g.update()
         //clear
         g.context.clearRect(0, 0, g.canvas.width, g.canvas.height)
-        log(this.scene)
         //draw
         g.draw()
         setTimeout(function () {

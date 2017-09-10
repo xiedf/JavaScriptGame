@@ -5,6 +5,11 @@ const config = {
     bullet_speed: 5,
     fire_cooldown: 5,
 }
+const randomBetween = function (start, end) {
+    var n = Math.random() * (end - start + 1)
+    return Math.floor(n + start)
+}
+
 class Bullet extends GameImage {
     constructor(game) {
         super(game, 'bullet')
@@ -67,11 +72,6 @@ class Player extends GameImage {
 
     }
 }
-
-const randomBetween = function (start, end) {
-    var n = Math.random() * (end - start + 1)
-    return Math.floor(n + start)
-}
 class Enemy extends GameImage {
     constructor(game) {
         var type = randomBetween(0, 4)
@@ -108,7 +108,6 @@ class Enemy extends GameImage {
     }
 
 }
-
 class Cloud extends GameImage {
     constructor(game) {
         super(game, 'cloud')
@@ -200,10 +199,7 @@ class Scene extends GameScene{
         // })
     }
     draw() {
-        for (var i = 0; i < this.elements.length; i++){
-            var e = this.elements[i]
-            this.game.drawImage(e)
-        }
+        super.draw()
     }
     update() {
         super.update()

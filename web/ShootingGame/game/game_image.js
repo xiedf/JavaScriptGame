@@ -17,9 +17,3 @@ class GameImage{
     draw(){}
     update(){}
 }
-//逻辑上来说不应该继承gameImage,而是组合
-// class Player extends GameImage{
-//     constructor(game, name){
-//         super(game, name)
-//     }
-// }

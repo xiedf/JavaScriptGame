@@ -28,7 +28,7 @@ var main = function () {
         enemy2: 'ShootingGame/img/npc2.png',
         enemy3: 'ShootingGame/img/npc3.png',
         enemy4: 'ShootingGame/img/npc4.png',
-
+        fire: 'ShootingGame/img/fire.png',
         sky: 'ShootingGame/img/sky.jpg',
     }
     var game = Game.instance(30, images, function (g) {
