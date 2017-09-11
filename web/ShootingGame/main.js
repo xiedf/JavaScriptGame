@@ -32,7 +32,7 @@ var main = function () {
         sky: 'ShootingGame/img/sky.jpg',
     }
     var game = Game.instance(30, images, function (g) {
-        var s = Scene.new(g)
+        var s = SceneTitle.new(g)
         g.runWithScene(s)
         // log('main')
     })

@@ -21,7 +21,7 @@ class GameParticle extends GameImage {
         this.y += this.vy
     }
     draw() {
-        this.game.texture.draw()
+        super.draw()
     }
 }
 
@@ -58,7 +58,6 @@ class GameParticleSystem {
     draw() {
         // log('draw particle', this.game)
         for (var p of this.particles) {
-            log('draw1', p)
             p.draw()
         }
     }

@@ -14,6 +14,8 @@ class GameImage{
         var i = new this(game, name)
         return i
     }
-    draw(){}
+    draw(){
+        this.game.context.drawImage(this.texture, this.x, this.y)
+    }
     update(){}
 }
